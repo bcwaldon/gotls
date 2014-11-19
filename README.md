@@ -10,9 +10,9 @@ For example, use TLSInfo to configure a command-line HTTP client like this:
 
 ```Go
 var info TLSInfo
-flag.StringVar(&globalFlags.KeyFile, "keyfile", "", "Location of TLS key file")
-flag.StringVar(&globalFlags.CertFile, "certfile", "", "Location of TLS cert file")
-flag.StringVar(&globalFlags.CAFile, "cafile", "", "Location of TLS CA file")
+flag.StringVar(&info.KeyFile, "keyfile", "", "Location of TLS key file")
+flag.StringVar(&info.CertFile, "certfile", "", "Location of TLS cert file")
+flag.StringVar(&info.CAFile, "cafile", "", "Location of TLS CA file")
 flag.Parse()
 
 client := &http.Client{
