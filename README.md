@@ -6,12 +6,28 @@ Because TLS is hard.
 
 Use the TLSInfo object to establish the required configuration for TLS servers and clients.
 
+For example, use TLSInfo to configure a command-line HTTP client like this:
+
+```Go
+var info TLSInfo
+flag.StringVar(&globalFlags.KeyFile, "keyfile", "", "Location of TLS key file")
+flag.StringVar(&globalFlags.CertFile, "certfile", "", "Location of TLS cert file")
+flag.StringVar(&globalFlags.CAFile, "cafile", "", "Location of TLS CA file")
+flag.Parse()
+
+client := &http.Client{
+	Transport: &http.Transport{
+		TLSClientConfig: info.ClientConfig(),
+	},
+}
+```
+
 ## tools
 
-Build the term/ pkg for a TLS-termating TCP proxy.
+Build the term/ pkg for a TLS-terminating TCP proxy.
 Use this to test your clients and servers without actually implementing TLS server-side.
 
-```
+```Shell
 $ go build -o bin/gotls-term github.com/bcwaldon/gotls/term
 $ ./bin/gotls-term --bind 127.0.0.1:34819 --proxy 127.0.0.1:43019 --key-file server.key.insecure --cert-file server.crt
 2014/11/19 19:05:02 Established proxy on 127.0.0.1:34819, waiting for connections...
